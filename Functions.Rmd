@@ -1,0 +1,73 @@
+---
+title: "Functions.Rmd"
+author: "issa fall"
+date: "June 30, 2015"
+output: html_document.
+
+
+## Question1
+```
+Captain Jack is convinced that he can predict how much gold he will find on
+an island with the following equation: (a*b)-c*324+log(a),where a is the area
+of the island in square meters,b is the number of trees on the island, and c
+is how drunk he is on a scale of 1 to 10.Create a function called Jacks.Equation
+that takes a,b, and c as arguments and returns Captain Jack's predictions.Test
+your function for an island with an area of 1000 square meters that contains 30
+trees when Jack is at a 7/10 on a drunkenness scale
+```
+```{r,echo=TRUE}
+Jacks.Equation<-function(a,b,c){
+  output<-(a*b)-c*324+log(a)
+  return(output)
+}
+Jacks.Equation(a=1100,b=100,c=4)
+```
+## Question2
+Write a function called Standardize.me that takes vector x as an argument,
+and returns a vector that standardizes the values of x (standardization means
+substracting the mean and dividing by the standard deviation)
+```{r,echo=TRUE}
+Standardize.me<-function(x){
+  output<-(x-mean(x)/sd(x))
+  return(output)
+}
+data<-c(3,4,19,7,5,5,10,200)
+Standardize.me(data)
+```
+## Question3
+Write a function called remove.Outliers that takes a vector as an argument,
+determines which values of the vector are outliers,and returns a vector
+with the outliers removed.Define an outlier as any value that is less than 
+2 standard deviations below the mean,or more than 2 standard deviations above
+the mean.
+```{r,echo=TRUE}
+remove.Outliers<-function(x){
+  is.outlier<-x > mean(x)+2*sd(x) | x < mean(x)-2*sd(x)
+  new.vector<-x[(is.outlier == FALSE)]
+  return(new.vector)
+}
+```
+##Generating random numbers from a linear model
+```{r,echo=TRUE}
+set.seed(20)
+x<-rnorm(100)
+e<-rnorm(100,0,2)
+data<-0.5+2*x+e
+mean(data)
+mean(remove.Outliers(data))
+plot(x,data,col ="blue")
+data
+remove.Outliers(data)
+
+```
+## Question4
+Write a function called how.many that takes 2 arguments(data and value).
+The function should return a value indicating how many times the element
+"value" occured in the vector data.
+```{r,echo=TRUE}
+how.many<-function(data,value){
+  frequency.value<-data == value
+  output<-sum(frequency.value)
+  return(output)
+}
+how.many(data = c(2,3,5,3,1,6,2),value = 3)
