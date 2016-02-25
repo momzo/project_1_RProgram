@@ -1,0 +1,24 @@
+---
+title: "ProgAssignment3"
+author: "issa fall"
+date: "September 14, 2015"
+output: html_document
+---
+##Directory
+```{r directory,echo=TRUE}
+dir("C:/Users/ndeye amy fall/Desktop/Rstudio/rprog_data_ProgAssignment3-data.zip")
+```
+##Loading
+```{r,echo=TRUE}
+uzp<-unzip("~/rprog_data_ProgAssignment3-data.zip")
+uzp
+uzp[2]
+hosp<-read.csv("./hospital-data.csv",sep = ",",header = TRUE,na.strings = "NA")
+head(hosp)
+str(hosp)
+summary(hosp)
+table(hosp$Hospital.Ownership)
+table(hosp$Emergency.Services)
+table(hosp$Hospital.Ownership,hosp$Emergency.Services)
+table(hosp$State)
+table(hosp$Hospital.Type)
