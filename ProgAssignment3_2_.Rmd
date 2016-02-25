@@ -1,0 +1,133 @@
+---
+title: "ProgAssignment3(2)"
+author: "issa fall"
+date: "September 14, 2015"
+output: html_document
+---
+ keep_md :true
+ 
+ 
+##Directory
+```{r directory,echo=TRUE}
+dir("C:/Users/ndeye amy fall/Desktop/Rstudio/rpog_data_ProgAssignment3-data.zip")
+```
+##Loading
+```{r,echo=TRUE}
+uzp<-unzip("~/rprog_data_ProgAssignment3-data.zip")
+uzp
+out<-read.csv("./outcome-of-care-measures.csv",sep = ",",header = TRUE,na.strings = "NA")
+str(out)
+object.size(out)
+print(object.size(out), units = "Mb")
+summary(out)
+provider.number<-out$Provider.Number
+head(provider.number)
+state<-out$State
+head(state)
+hospital.name<-out$Hospital.Name
+head(hospital.name)
+x1<-out$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
+head(x1)
+x2<-out$Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack
+head(x2)
+x3<-out$Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
+x4<-out$Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure
+x5<-out$Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
+x6<-out$Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia
+f<-out[, "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack"][1:96]
+f
+## RANKING THE LEVELS("f")
+ff<-rank(f, na.last = TRUE)
+ff
+
+f2<-out[, "Hospital.30.Day.Death..Mortality..Rates.from.Heart.Failure"][1:106]
+f2
+## RANKING THE LEVELS("f2")
+ff2<-rank(f2, na.last = TRUE)
+ff2
+f3<-out[, "Hospital.30.Day.Death..Mortality..Rates.from.Pneumonia"][1:122]
+f3
+## RANKING THE LEVELS("f3")
+ff3<-rank(f3,na.last = TRUE)
+ff3
+interaction(f,f2,f3, drop = FALSE)
+## RANKING THE INTERACTION BETWEEN LEVELS
+int<-rank(interaction(f,f2,f3),na.last = TRUE)
+int
+table(out$ZIP.Code%in%10458)
+table(out$ZIP.Code%in%10457)
+quantile(out$ZIP.Code%in%10457)
+out[out$ZIP.Code%in%10457, ]
+table(out$ZIP.Code%in%13820)
+out[out$ZIP.Code%in%13820, ]
+table(out$State%in%"NY")
+quantile(out$State%in%"NY")
+##x7<-out$Hospital.30.Day.Readmission..Rates.from.Heart.Attack
+##head(x7)
+##x8<-out$Comparison.to.U.S..Rate...Hospital.30.Day.Readmission..Rates.from.Heart.Attack
+##head(x8)
+##x9<-out$Hospital.30.Day.Readmission..Rates.from.Heart.Failure
+##x10<-out$Comparison.to.U.S..Rates...Hospital.30.Day.Readmission..Rates.from.Heart.Failure
+##x11<-out$Hospital.30.Day.Readmission..Rates.from.Pneumonia
+##x12<-out$Comparison.to.U.S..Rate...Hospital.30.Day.Readmission..Rates.from.Pneumonia
+
+provider.number<-out[which(out[, "Provider.Number"] == "out$Provider.Number"), ]
+hospital.name<-out[which(out[, "Provider.Number"] == 140281), ]
+head(hospital.name)
+out[out$State =="NY", "State"]
+state<-out[which(out[, "State"]=="state"),]
+state<-out[which(out[, "State"]=="NY"),]
+head(state[2])
+out[which(out$Provider.Number==140281), "Comparison.to.U.S..Rate...Hospital.30.Day.Death..Mortality..Rates.from.Heart.Attack"]
+```
+```{r,echo=TRUE}
+## HEART ATTACCK
+table(x2)
+## HEART FAILURE
+table(x4)
+## PNEUMONIA
+table(x6)
+## READMISSION HEART ATTACK
+##table(x8)
+## READMISSION HEART FAILURE
+##table(x10)
+## READMISSION PNEUMONIA
+##table(x12)
+## LET'S SPLIT THE DATA FRAME 
+## HEART ATTACK
+s2<-split(out,x2, drop = FALSE)
+Bestpart1 <-lapply(s2,function(elt) elt[, 1])[1]
+Bestpart1
+## HEART FAILURE
+s4<-split(out,x4, drop = FALSE)
+Bestpart2<-lapply(s4,function(elt) elt[, 1])[1]
+Bestpart2
+## PNEUMONIA
+s6<-split(out,x6, drop = FALSE)
+Bestpart3<-lapply(s6,function(elt) elt[, 1])[1]
+Bestpart3
+## READMISSION HERAT ATTACK
+##s8<-split(out,x8, drop = FALSE)
+##lapply(s8,function(elt) elt[, 1])[1]
+## READMISSION HEART FAILURE
+##s10<-split(out,x10, drop = FALSE)
+##lapply(s10,function(elt) elt[, 1])[1]
+## READMISSION PNEUMONIA
+##s12<-split(out,x12, drop = FALSE)
+##lapply(s12,function(elt) elt[,1])[1]
+##intersect(names(lapply(s2,function(elt) elt[, 1])[1]),names(lapply(s4,function(elt) elt[, 1])[1]))
+##head(interaction(x2,x4,x6,drop = TRUE))
+## HOSPITALS's ROWS
+##rankall<-rank(out[, "Hospital.Name"],na.last = TRUE)
+##rankall
+out[3709, ]
+out[2217, ]
+out[2525, ]
+out[, 19]<-as.numeric(out[, 19])
+table(as.factor(out[, 19]))
+out[, 13]<-as.numeric(out[, 13])
+table(as.factor(out[, 13]))
+out[, 25]<-as.numeric(out[, 25])
+table(as.factor(out[, 25]))
+
+```
